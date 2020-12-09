@@ -1,0 +1,47 @@
+{
+  "name": "rollup-plugin-worker-factory",
+  "version": "0.0.0",
+  "description": "Bundle web workers that work in nodejs and the browser, without a separate build target.",
+  "main": "src/index.js",
+  "scripts": {
+    "lint": "vjsstandard",
+    "test": "npm run test:unit && npm run test:verify",
+    "test:unit": "npm run lint",
+    "test:verify": "vjsverify --skip-es-check --verbose",
+    "preversion": "npm test",
+    "version": "is-prerelease || npm run update-changelog && git add CHANGELOG.md",
+    "update-changelog": "conventional-changelog -p videojs -i CHANGELOG.md -s",
+    "prepublishOnly": "npm run test:verify"
+  },
+  "lint-staged": {
+    "*.js": "vjsstandard --fix",
+    "README.md": "doctoc --notitle"
+  },
+  "keywords": [
+    "rollup",
+    "rollup-plugin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brandonocasey/rollup-plugin-worker-factory"
+  },
+  "author": "Brandon Casey <brandonocasey@gmail.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/brandonocasey/rollup-plugin-worker-factory/issues"
+  },
+  "homepage": "https://github.com/brandonocasey/rollup-plugin-worker-factory",
+  "devDependencies": {
+    "@videojs/generator-helpers": "^2.0.1",
+    "videojs-generator-verify": "~3.0.1",
+    "videojs-standard": "^8.0.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "dependencies": {
+    "rollup": "^2.34.2"
+  }
+}
