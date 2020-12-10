@@ -1,3 +1,10 @@
+<a name="0.1.0"></a>
+# 0.1.0 (2020-12-10)
+
+### Features
+
+* intial working code ([722d65a](https://github.com/brandonocasey/rollup-plugin-worker-factory/commit/722d65a))
+
 <a name="6.1.0"></a>
 # [6.1.0](https://github.com/videojs/videojs-generate-rollup-config/compare/v6.0.2...v6.1.0) (2020-12-09)
 
