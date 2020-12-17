@@ -1,3 +1,14 @@
+<a name="0.2.0"></a>
+# [0.2.0](https://github.com/brandonocasey/rollup-plugin-worker-factory/compare/v0.1.0...v0.2.0) (2020-12-17)
+
+### Features
+
+* comments before and after, better rollup config ([53e6d3f](https://github.com/brandonocasey/rollup-plugin-worker-factory/commit/53e6d3f))
+
+### Bug Fixes
+
+* trycatch worker_threads require and warn on error ([fd0d5de](https://github.com/brandonocasey/rollup-plugin-worker-factory/commit/fd0d5de))
+
 <a name="0.1.0"></a>
 # 0.1.0 (2020-12-10)
 
