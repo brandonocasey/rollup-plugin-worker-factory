@@ -31,13 +31,11 @@ module.exports = function(options) {
         plugins: options.plugins || [],
         cache: cache[id],
         onwarn: this.warn,
-        external: [factoryPath, 'worker_threads', 'tiny-worker']
+        external: [factoryPath, 'worker_threads']
       };
 
       const outputOptions = {
-        name: 'workerFactory',
-        format: 'cjs',
-        file: 'bundle-worker'
+        format: 'cjs'
       };
 
       return rollup.rollup(inputOptions).then((bundle) => {
@@ -48,9 +46,11 @@ module.exports = function(options) {
         const code = output[0].code;
 
         return Promise.resolve(`import workerFactory from "${factoryPath}";\n` +
+          `/* rollup-plugin-worker-factory start for ${id} */\n` +
           'const workerFunction = function() {\n' +
           code +
           '}\n' +
+          `/* rollup-plugin-worker-factory end for ${id} */\n` +
           'export default workerFactory(workerFunction);');
       });
     }
