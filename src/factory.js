@@ -1,4 +1,5 @@
 /* global window, process */
+/* eslint-disable no-console */
 let nodeVersion;
 
 try {
@@ -29,7 +30,13 @@ if (nodeVersion) {
     return workerObj;
   };
 
-  const Worker = require('worker_threads').Worker;
+  let Worker;
+
+  try {
+    Worker = require('worker_threads').Worker;
+  } catch (e) {
+    console.warn('rollup-plugin-worker-factory: warning worker_threads API required to run in node');
+  }
 
   workerFactory = function(workerFunction) {
     // make worker_threads more like web workers
