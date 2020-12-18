@@ -1,6 +1,9 @@
 const rollup = require('rollup');
 const path = require('path');
-const factoryPath = path.join(__dirname, 'factory.js');
+const universalFactory = 'rollup-plugin-worker-factory/src/universal-factory.js';
+const nodeFactory = 'rollup-plugin-worker-factory/src/node-factory.js';
+const browserFactory = 'rollup-plugin-worker-factory/src/browser-factory.js';
+const getWorkerString = 'rollup-plugin-worker-factory/src/get-worker-string.js';
 
 module.exports = function(options) {
   const cache = {};
@@ -26,12 +29,26 @@ module.exports = function(options) {
       }
       const input = id.split('!')[1];
 
+      let factoryPath = universalFactory;
+
+      if (options && options.type === 'browser') {
+        factoryPath = browserFactory;
+      } else if (options && options.type === 'node') {
+        factoryPath = nodeFactory;
+      }
+
       const inputOptions = {
         input,
         plugins: options.plugins || [],
         cache: cache[id],
         onwarn: this.warn,
-        external: [factoryPath, 'worker_threads']
+        external: [
+          browserFactory,
+          universalFactory,
+          nodeFactory,
+          getWorkerString,
+          'worker_threads'
+        ]
       };
 
       const outputOptions = {
