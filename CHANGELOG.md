@@ -1,3 +1,10 @@
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/brandonocasey/rollup-plugin-worker-factory/compare/v0.2.0...v0.3.0) (2020-12-18)
+
+### Features
+
+* support nodee, browser, or universal workers via a type option ([831a205](https://github.com/brandonocasey/rollup-plugin-worker-factory/commit/831a205))
+
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/brandonocasey/rollup-plugin-worker-factory/compare/v0.1.0...v0.2.0) (2020-12-17)
 
