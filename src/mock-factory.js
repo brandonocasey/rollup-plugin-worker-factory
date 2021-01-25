@@ -1,5 +1,3 @@
-import getWorkerString from './get-worker-string.js';
-
 class FakeWorker {
   constructor() {
     this.listeners_ = [];
@@ -49,9 +47,6 @@ class FakeWorker {
 }
 
 const workerFactory = function(workerFunction) {
-  // eslint-disable-next-line
-  const fn = new Function('self', getWorkerString(workerFunction));
-
   return () => {
     const client = new FakeWorker();
     const worker = new FakeWorker();
@@ -59,7 +54,7 @@ const workerFactory = function(workerFunction) {
     client.remote_ = worker;
     worker.remote_ = client;
 
-    fn(worker);
+    workerFunction(worker);
 
     return client;
   };

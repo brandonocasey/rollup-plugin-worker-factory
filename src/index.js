@@ -66,9 +66,11 @@ module.exports = function(options) {
       }).then(({output}) => {
         const code = output[0].code;
 
+        // we make self the first argument even though it will almost always
+        // be a global so that mockFactory doesn't have to "eval" code
         return Promise.resolve(`import workerFactory from "${factoryPath}";\n` +
           `/* rollup-plugin-worker-factory start for ${id} */\n` +
-          'const workerFunction = function() {\n' +
+          'const workerFunction = function(self) {\n' +
           code +
           '}\n' +
           `/* rollup-plugin-worker-factory end for ${id} */\n` +
