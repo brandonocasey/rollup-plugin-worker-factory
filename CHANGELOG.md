@@ -1,3 +1,10 @@
+<a name="0.4.0"></a>
+# [0.4.0](https://github.com/brandonocasey/rollup-plugin-worker-factory/compare/v0.3.0...v0.4.0) (2021-01-25)
+
+### Features
+
+* support mock workers, document type option ([b1596c6](https://github.com/brandonocasey/rollup-plugin-worker-factory/commit/b1596c6))
+
 <a name="0.3.0"></a>
 # [0.3.0](https://github.com/brandonocasey/rollup-plugin-worker-factory/compare/v0.2.0...v0.3.0) (2020-12-18)
 
