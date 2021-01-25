@@ -4,6 +4,7 @@ const universalFactory = 'rollup-plugin-worker-factory/src/universal-factory.js'
 const nodeFactory = 'rollup-plugin-worker-factory/src/node-factory.js';
 const browserFactory = 'rollup-plugin-worker-factory/src/browser-factory.js';
 const getWorkerString = 'rollup-plugin-worker-factory/src/get-worker-string.js';
+const mockFactory = 'rollup-plugin-worker-factory/src/mock-factory.js';
 
 module.exports = function(options) {
   const cache = {};
@@ -31,7 +32,9 @@ module.exports = function(options) {
 
       let factoryPath = universalFactory;
 
-      if (options && options.type === 'browser') {
+      if (options && options.type === 'mock') {
+        factoryPath = mockFactory;
+      } else if (options && options.type === 'browser') {
         factoryPath = browserFactory;
       } else if (options && options.type === 'node') {
         factoryPath = nodeFactory;
@@ -46,6 +49,7 @@ module.exports = function(options) {
           browserFactory,
           universalFactory,
           nodeFactory,
+          mockFactory,
           getWorkerString,
           'worker_threads'
         ]

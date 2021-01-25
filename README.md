@@ -10,6 +10,7 @@
 - [Modifictaion to browser WebWorkers](#modifictaion-to-browser-webworkers)
 - [Options](#options)
   - [plugins](#plugins)
+  - [type](#type)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -73,6 +74,17 @@ self.addEventListener('message', function(e) {
 ## Options
 ### plugins
 An array of rollup plugins to bundle the web workers with, you will probably want:
+
+### type
+> Default: 'universal'
+
+The type of factory to build, can be 'node', 'mock', 'browser', or 'universal'.
+* browser will only work in the browser
+* node will only work in node
+* mock will work everywhere but runs on the same thread
+* universal will work on the browser or node depending on available apis
+
+
 * [@rollup/plugin-node-resolve](https://www.npmjs.com/package/@rollup/plugin-node-resolve)
 * [@rollup/plugin-json](https://www.npmjs.com/package/@rollup/plugin-json)
 * [@rollup/plugin-commonjs](https://www.npmjs.com/package/@rollup/plugin-commonjs)
