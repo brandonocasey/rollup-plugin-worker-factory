@@ -1,3 +1,10 @@
+<a name="0.4.1"></a>
+## [0.4.1](https://github.com/brandonocasey/rollup-plugin-worker-factory/compare/v0.4.0...v0.4.1) (2021-01-25)
+
+### Bug Fixes
+
+* do not eval mock workers, prevents break point issues ([63fe865](https://github.com/brandonocasey/rollup-plugin-worker-factory/commit/63fe865))
+
 <a name="0.4.0"></a>
 # [0.4.0](https://github.com/brandonocasey/rollup-plugin-worker-factory/compare/v0.3.0...v0.4.0) (2021-01-25)
 
