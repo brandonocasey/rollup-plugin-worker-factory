@@ -1,10 +1,11 @@
 const rollup = require('rollup');
+const fs = require('fs');
 const path = require('path');
-const universalFactory = 'rollup-plugin-worker-factory/src/universal-factory.js';
-const nodeFactory = 'rollup-plugin-worker-factory/src/node-factory.js';
-const browserFactory = 'rollup-plugin-worker-factory/src/browser-factory.js';
-const getWorkerString = 'rollup-plugin-worker-factory/src/get-worker-string.js';
-const mockFactory = 'rollup-plugin-worker-factory/src/mock-factory.js';
+const universal = 'rollup-plugin-worker-factory/src/universal.js';
+const node = 'rollup-plugin-worker-factory/src/node.js';
+const browser = 'rollup-plugin-worker-factory/src/browser.js';
+const mock = 'rollup-plugin-worker-factory/src/mock.js';
+const getWorkerString = fs.readFileSync(path.join(__dirname, 'get-worker-string.js'), 'utf8');
 
 module.exports = function(options) {
   const cache = {};
@@ -12,6 +13,9 @@ module.exports = function(options) {
   return {
     name: 'workerFactory',
     resolveId(importee, importer) {
+      if (importee === 'rollup-plugin-worker-factory/src/get-worker-string') {
+        return importee;
+      }
       // if this is not an id we can resolve return
       if (importee.indexOf('worker!') !== 0) {
         return;
@@ -25,19 +29,22 @@ module.exports = function(options) {
       return `worker!${fullpath}`;
     },
     load(id) {
+      if (id === 'rollup-plugin-worker-factory/src/get-worker-string') {
+        return getWorkerString;
+      }
       if (id.indexOf('worker!') !== 0) {
         return null;
       }
       const input = id.split('!')[1];
 
-      let factoryPath = universalFactory;
+      let factoryPath = universal;
 
       if (options && options.type === 'mock') {
-        factoryPath = mockFactory;
+        factoryPath = mock;
       } else if (options && options.type === 'browser') {
-        factoryPath = browserFactory;
+        factoryPath = browser;
       } else if (options && options.type === 'node') {
-        factoryPath = nodeFactory;
+        factoryPath = node;
       }
 
       const inputOptions = {
@@ -46,11 +53,6 @@ module.exports = function(options) {
         cache: cache[id],
         onwarn: this.warn,
         external: [
-          browserFactory,
-          universalFactory,
-          nodeFactory,
-          mockFactory,
-          getWorkerString,
           'worker_threads'
         ]
       };
@@ -66,15 +68,15 @@ module.exports = function(options) {
       }).then(({output}) => {
         const code = output[0].code;
 
-        // we make self the first argument even though it will almost always
-        // be a global so that mockFactory doesn't have to "eval" code
-        return Promise.resolve(`import workerFactory from "${factoryPath}";\n` +
+        const newCode = '' +
           `/* rollup-plugin-worker-factory start for ${id} */\n` +
-          'const workerFunction = function(self) {\n' +
-          code +
-          '}\n' +
-          `/* rollup-plugin-worker-factory end for ${id} */\n` +
-          'export default workerFactory(workerFunction);');
+          `import {transform, factory} from "${factoryPath}";\n` +
+          'import getWorkerString from "rollup-plugin-worker-factory/src/get-worker-string";\n' +
+          `const workerCode = transform(getWorkerString(function() {\n${code}\n}));\n` +
+          'export default factory(workerCode);\n' +
+          `/* rollup-plugin-worker-factory end for ${id} */\n`;
+
+        return Promise.resolve(newCode);
       });
     }
   };

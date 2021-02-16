@@ -46,7 +46,10 @@ class FakeWorker {
   }
 }
 
-const workerFactory = function(workerFunction) {
+FakeWorker.prototype.on = FakeWorker.prototype.addEventListener;
+FakeWorker.prototype.off = FakeWorker.prototype.removeEventListener;
+
+export const factory = function(fn) {
   return () => {
     const client = new FakeWorker();
     const worker = new FakeWorker();
@@ -54,10 +57,14 @@ const workerFactory = function(workerFunction) {
     client.remote_ = worker;
     worker.remote_ = client;
 
-    workerFunction(worker);
+    fn(worker);
 
     return client;
   };
 };
 
-export default workerFactory;
+export const transform = function(code) {
+  // eslint-disable-next-line
+  return new Function('self', code);
+};
+

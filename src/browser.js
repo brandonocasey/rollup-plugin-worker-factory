@@ -1,6 +1,6 @@
-import getWorkerString from './get-worker-string.js';
-/* global Blob, BlobBuilder Worker */
+/* global Blob, BlobBuilder, Worker */
 
+// unify worker interface
 const browserWorkerPolyFill = function(workerObj) {
   // node only supports on/off
   workerObj.on = workerObj.addEventListener;
@@ -8,6 +8,7 @@ const browserWorkerPolyFill = function(workerObj) {
 
   return workerObj;
 };
+
 const createObjectURL = function(str) {
   try {
     return URL.createObjectURL(new Blob([str], {type: 'application/javascript'}));
@@ -20,14 +21,10 @@ const createObjectURL = function(str) {
   }
 };
 
-const workerFactory = function(workerFunction) {
-  const code = `const browserWorkerPolyFill = ${browserWorkerPolyFill.toString()};\n` +
-    'self = browserWorkerPolyFill(self);\n' +
-    getWorkerString(workerFunction);
-
+export const factory = function(code) {
   return function() {
     const objectUrl = createObjectURL(code);
-    const worker = new Worker(objectUrl);
+    const worker = browserWorkerPolyFill(new Worker(objectUrl));
 
     worker.objURL = objectUrl;
     const terminate = worker.terminate;
@@ -44,4 +41,9 @@ const workerFactory = function(workerFunction) {
   };
 };
 
-export default workerFactory;
+export const transform = function(code) {
+  return `var browserWorkerPolyFill = ${browserWorkerPolyFill.toString()};\n` +
+    'browserWorkerPolyFill(self);\n' +
+    code;
+};
+

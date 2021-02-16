@@ -3,4 +3,3 @@ const getWorkerString = function(fn) {
 };
 
 export default getWorkerString;
-

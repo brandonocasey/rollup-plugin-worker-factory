@@ -1,6 +1,4 @@
-import getWorkerString from './get-worker-string.js';
-
-// used to make nodejs workers behave like
+// used to make nodejs workers behave like the browser
 const nodeWorkerPolyfill = function(workerObj) {
   const oldPost = workerObj.postMessage;
 
@@ -15,6 +13,7 @@ const nodeWorkerPolyfill = function(workerObj) {
 
   return workerObj;
 };
+
 /**
  * We use new Function here for a few reasons
  * 1. It prevents bundlers from trying to bundle worker_threads
@@ -24,15 +23,17 @@ const nodeWorkerPolyfill = function(workerObj) {
 // eslint-disable-next-line
 const getWorker = new Function('req', 'return req("worker_threads").Worker;');
 
-const workerFactory = function(workerFunction) {
-  const Worker = getWorker(require);
+export const factory = function(code) {
+  return function() {
+    const Worker = getWorker(require);
 
-  // make worker_threads more like web workers
-  const code = `const nodeWorkerPolyfill = ${nodeWorkerPolyfill.toString()};\n` +
-    "global.self = nodeWorkerPolyfill(require('worker_threads').parentPort);\n" +
-    getWorkerString(workerFunction);
-
-  return () => nodeWorkerPolyfill(new Worker(code, {eval: true}));
+    return nodeWorkerPolyfill(new Worker(code, {eval: true}));
+  };
 };
 
-export default workerFactory;
+export const transform = function(code) {
+  return `const nodeWorkerPolyfill = ${nodeWorkerPolyfill.toString()};\n` +
+    'global.self = nodeWorkerPolyfill(require("worker_threads").parentPort);\n' +
+    code;
+};
+
