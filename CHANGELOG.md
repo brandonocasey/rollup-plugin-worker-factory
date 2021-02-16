@@ -1,3 +1,10 @@
+<a name="0.5.0"></a>
+# [0.5.0](https://github.com/brandonocasey/rollup-plugin-worker-factory/compare/v0.4.1...v0.5.0) (2021-02-16)
+
+### Bug Fixes
+
+* should work with minifiers and platforms without workers ([4685d39](https://github.com/brandonocasey/rollup-plugin-worker-factory/commit/4685d39))
+
 <a name="0.4.1"></a>
 ## [0.4.1](https://github.com/brandonocasey/rollup-plugin-worker-factory/compare/v0.4.0...v0.4.1) (2021-01-25)
 

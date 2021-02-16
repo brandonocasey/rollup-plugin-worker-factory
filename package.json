@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-worker-factory",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "Bundle web workers that work in nodejs and the browser, without a separate build target.",
   "main": "src/index.js",
   "scripts": {
