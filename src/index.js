@@ -14,7 +14,7 @@ module.exports = function(options) {
     name: 'workerFactory',
     resolveId(importee, importer) {
       if (importee === 'rollup-plugin-worker-factory/src/get-worker-string') {
-        return importee;
+        return importee + '.js';
       }
       // if this is not an id we can resolve return
       if (importee.indexOf('worker!') !== 0) {
@@ -29,7 +29,7 @@ module.exports = function(options) {
       return `worker!${fullpath}`;
     },
     load(id) {
-      if (id === 'rollup-plugin-worker-factory/src/get-worker-string') {
+      if (id === 'rollup-plugin-worker-factory/src/get-worker-string.js') {
         return getWorkerString;
       }
       if (id.indexOf('worker!') !== 0) {
