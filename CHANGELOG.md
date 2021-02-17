@@ -1,3 +1,10 @@
+<a name="0.5.1"></a>
+## [0.5.1](https://github.com/brandonocasey/rollup-plugin-worker-factory/compare/v0.5.0...v0.5.1) (2021-02-17)
+
+### Bug Fixes
+
+* make sure get-worker-string can be transcoded ([f5d732c](https://github.com/brandonocasey/rollup-plugin-worker-factory/commit/f5d732c))
+
 <a name="0.5.0"></a>
 # [0.5.0](https://github.com/brandonocasey/rollup-plugin-worker-factory/compare/v0.4.1...v0.5.0) (2021-02-16)
 
