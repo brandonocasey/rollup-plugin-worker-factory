@@ -42,6 +42,12 @@ class FakeWorker {
   }
 
   terminate() {
+    if (this.remote_) {
+      this.remote_.remote_ = null;
+      this.remote_.terminate();
+      this.remote_ = null;
+    }
+    this.onmessage = null;
     this.listeners_.length = 0;
   }
 }
@@ -50,7 +56,7 @@ FakeWorker.prototype.on = FakeWorker.prototype.addEventListener;
 FakeWorker.prototype.off = FakeWorker.prototype.removeEventListener;
 
 export const factory = function(fn) {
-  return () => {
+  return function() {
     const client = new FakeWorker();
     const worker = new FakeWorker();
 
