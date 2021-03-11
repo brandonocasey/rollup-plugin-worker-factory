@@ -41,9 +41,9 @@ export const factory = function(code) {
   };
 };
 
-export const transform = function(getWorkerString, fn) {
+export const transform = function(code) {
   return `var browserWorkerPolyFill = ${browserWorkerPolyFill.toString()};\n` +
     'browserWorkerPolyFill(self);\n' +
-    getWorkerString(fn);
+    code;
 };
 

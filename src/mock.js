@@ -69,7 +69,7 @@ export const factory = function(fn) {
   };
 };
 
-export const transform = function(getWorkerString, fn) {
+export const transform = function(fn) {
   // eslint-disable-next-line
   return fn;
 };

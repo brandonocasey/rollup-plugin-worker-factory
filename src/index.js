@@ -67,12 +67,22 @@ module.exports = function(options) {
         return bundle.generate(outputOptions);
       }).then(({output}) => {
         const code = output[0].code;
+        let workerCode;
+
+        // mock worker does not use a string, it uses a
+        // real function
+        if (factoryPath !== mock) {
+          workerCode = `getWorkerString(function() {\n${code}\n})`;
+        } else {
+          workerCode = `function(self) {\n${code}\n}`;
+
+        }
 
         const newCode = '' +
           `/* rollup-plugin-worker-factory start for ${id} */\n` +
           `import {transform, factory} from "${factoryPath}";\n` +
           'import getWorkerString from "rollup-plugin-worker-factory/src/get-worker-string";\n' +
-          `const workerCode = transform(getWorkerString, function(self) {\n${code}\n});\n` +
+          `const workerCode = transform(${workerCode});\n` +
           'export default factory(workerCode);\n' +
           `/* rollup-plugin-worker-factory end for ${id} */\n`;
 
