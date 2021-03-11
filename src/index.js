@@ -72,7 +72,7 @@ module.exports = function(options) {
           `/* rollup-plugin-worker-factory start for ${id} */\n` +
           `import {transform, factory} from "${factoryPath}";\n` +
           'import getWorkerString from "rollup-plugin-worker-factory/src/get-worker-string";\n' +
-          `const workerCode = transform(getWorkerString(function() {\n${code}\n}));\n` +
+          `const workerCode = transform(getWorkerString, function(self) {\n${code}\n});\n` +
           'export default factory(workerCode);\n' +
           `/* rollup-plugin-worker-factory end for ${id} */\n`;
 

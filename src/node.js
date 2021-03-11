@@ -31,9 +31,9 @@ export const factory = function(code) {
   };
 };
 
-export const transform = function(code) {
+export const transform = function(getWorkerString, fn) {
   return `const nodeWorkerPolyfill = ${nodeWorkerPolyfill.toString()};\n` +
     'global.self = nodeWorkerPolyfill(require("worker_threads").parentPort);\n' +
-    code;
+    getWorkerString(fn);
 };
 
