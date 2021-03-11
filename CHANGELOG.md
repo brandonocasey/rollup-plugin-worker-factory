@@ -1,3 +1,10 @@
+<a name="0.5.4"></a>
+## [0.5.4](https://github.com/brandonocasey/rollup-plugin-worker-factory/compare/v0.5.3...v0.5.4) (2021-03-11)
+
+### Bug Fixes
+
+* do not break uglify ([d282fcc](https://github.com/brandonocasey/rollup-plugin-worker-factory/commit/d282fcc))
+
 <a name="0.5.3"></a>
 ## [0.5.3](https://github.com/brandonocasey/rollup-plugin-worker-factory/compare/v0.5.2...v0.5.3) (2021-03-11)
 
