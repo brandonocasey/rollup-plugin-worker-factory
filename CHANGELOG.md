@@ -1,3 +1,10 @@
+<a name="0.5.3"></a>
+## [0.5.3](https://github.com/brandonocasey/rollup-plugin-worker-factory/compare/v0.5.2...v0.5.3) (2021-03-11)
+
+### Bug Fixes
+
+* mock worker coverage support ([9ebfea6](https://github.com/brandonocasey/rollup-plugin-worker-factory/commit/9ebfea6))
+
 <a name="0.5.2"></a>
 ## [0.5.2](https://github.com/brandonocasey/rollup-plugin-worker-factory/compare/v0.5.1...v0.5.2) (2021-03-11)
 
