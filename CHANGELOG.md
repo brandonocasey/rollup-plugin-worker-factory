@@ -1,3 +1,10 @@
+<a name="0.5.5"></a>
+## [0.5.5](https://github.com/brandonocasey/rollup-plugin-worker-factory/compare/v0.5.4...v0.5.5) (2021-04-09)
+
+### Bug Fixes
+
+* support dispatchEvent on mock worker. Rename FakeWorker to MockWorker ([0050391](https://github.com/brandonocasey/rollup-plugin-worker-factory/commit/0050391))
+
 <a name="0.5.4"></a>
 ## [0.5.4](https://github.com/brandonocasey/rollup-plugin-worker-factory/compare/v0.5.3...v0.5.4) (2021-03-11)
 
