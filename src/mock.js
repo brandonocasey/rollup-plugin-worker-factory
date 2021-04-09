@@ -1,4 +1,4 @@
-class FakeWorker {
+class MockWorker {
   constructor() {
     this.listeners_ = [];
     this.remote_ = null;
@@ -21,6 +21,16 @@ class FakeWorker {
     }
 
     this.listeners_.splice(i, 1);
+  }
+
+  dispatchEvent(event) {
+    if (!event || event.type !== 'message') {
+      return;
+    }
+
+    this.listeners_.forEach(function(fn) {
+      fn(event);
+    });
   }
 
   postMessage(data) {
@@ -52,13 +62,13 @@ class FakeWorker {
   }
 }
 
-FakeWorker.prototype.on = FakeWorker.prototype.addEventListener;
-FakeWorker.prototype.off = FakeWorker.prototype.removeEventListener;
+MockWorker.prototype.on = MockWorker.prototype.addEventListener;
+MockWorker.prototype.off = MockWorker.prototype.removeEventListener;
 
 export const factory = function(fn) {
   return function() {
-    const client = new FakeWorker();
-    const worker = new FakeWorker();
+    const client = new MockWorker();
+    const worker = new MockWorker();
 
     client.remote_ = worker;
     worker.remote_ = client;
