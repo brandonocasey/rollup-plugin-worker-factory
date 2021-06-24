@@ -1,3 +1,10 @@
+<a name="0.5.6"></a>
+## [0.5.6](https://github.com/brandonocasey/rollup-plugin-worker-factory/compare/v0.5.5...v0.5.6) (2021-06-24)
+
+### Bug Fixes
+
+* slight parentPort API change workaround for node >= 14 ([31d3902](https://github.com/brandonocasey/rollup-plugin-worker-factory/commit/31d3902))
+
 <a name="0.5.5"></a>
 ## [0.5.5](https://github.com/brandonocasey/rollup-plugin-worker-factory/compare/v0.5.4...v0.5.5) (2021-04-09)
 
