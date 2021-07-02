@@ -1,6 +1,7 @@
 class MockWorker {
   constructor() {
     this.listeners_ = [];
+    this.onmessage = null;
     this.remote_ = null;
   }
   addEventListener(type, fn) {
@@ -28,6 +29,9 @@ class MockWorker {
       return;
     }
 
+    if (this.onmessage) {
+      this.onmessage(event);
+    }
     this.listeners_.forEach(function(fn) {
       fn(event);
     });
@@ -70,8 +74,10 @@ export const factory = function(fn) {
     const client = new MockWorker();
     const worker = new MockWorker();
 
+    client.type_ = 'window api';
     client.remote_ = worker;
     worker.remote_ = client;
+    worker.type_ = 'web worker';
 
     fn(worker);
 
