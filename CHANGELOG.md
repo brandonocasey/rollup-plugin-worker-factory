@@ -1,3 +1,10 @@
+<a name="0.5.7"></a>
+## [0.5.7](https://github.com/brandonocasey/rollup-plugin-worker-factory/compare/v0.5.6...v0.5.7) (2021-07-02)
+
+### Bug Fixes
+
+* mock worker dispatchEvent should use onmessage, add type_ debugging aide ([3afd219](https://github.com/brandonocasey/rollup-plugin-worker-factory/commit/3afd219))
+
 <a name="0.5.6"></a>
 ## [0.5.6](https://github.com/brandonocasey/rollup-plugin-worker-factory/compare/v0.5.5...v0.5.6) (2021-06-24)
 
